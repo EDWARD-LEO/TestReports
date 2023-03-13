@@ -49,5 +49,20 @@ namespace DAL
             desconectar();
             return dt;
         }
+
+        public DataTable getDataWithCondition(string spu, string key, string value)
+        {
+            DataTable dt = new DataTable();
+            conectar();
+
+            SqlCommand sqlCommand = new SqlCommand(spu, getConexion());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            sqlCommand.Parameters.AddWithValue(key, value);
+            dt.Load(sqlCommand.ExecuteReader());
+
+            desconectar();
+            return dt;
+        }
     }
 }
